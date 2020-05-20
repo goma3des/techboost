@@ -19,7 +19,7 @@
 
 <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/admin.css' )}}" rel="stylesheet">
+    <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
 
   </head>
 
@@ -34,7 +34,7 @@
               <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedCOntent">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
 <!-- Left side of Navbar -->
               <ul class="navbar-nav mr-auto">
 
@@ -42,8 +42,29 @@
 
 <!-- Right sice of Navbar -->
               <ul class"navbar-nav ml-auto">
+                @guest
+                  <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                  </li>
+                @else
+                  <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" area-haspopup="true" aria-expanded="false" v-pre>
+                    {{ Auth::user()->name }} <span class="caret"></span>
+                    </a>
 
-              </ul>
+                    <div class="dropdown-menu" area-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                  document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                      </a>
+
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                      </form>
+                    </div>
+                  </li>
+                  @endguest
+                </ul>
 
             </div>
           </div>
