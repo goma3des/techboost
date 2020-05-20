@@ -22,10 +22,13 @@ Route::get('xxx/AAA/bbb', 'xxx\AAAController@bbb');
 
 //4.
 
-Route::group(['prefix' => 'admin'], function(){
-  Route::get('news/create', 'admin\NewsController@add')->middleware('auth');
-  Route::get('profile/create', 'admin\ProfileController@add')->middleware('auth');
-  Route::get('profile/edit', 'admin\profileController@edit')->middleware('auth');
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
+  Route::get('news/create', 'Admin\NewsController@add');
+  Route::post('news/create', 'Admin\NewsController@create');
+  Route::get('profile/create', 'Admin\ProfileController@add');
+  Route::post('profile/create', 'Admin\ProfileController@create');
+  Route::get('profile/edit', 'Admin\profileController@edit');
+  Route::post('profile/edit', 'Admin\ProfileController@update');
 });
 
 Auth::routes();
