@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Profile;
+use App\Prof_history;
+use Carbon\Carbon;
 
 class ProfileController extends Controller
 {
@@ -26,7 +28,7 @@ class ProfileController extends Controller
 
       $profile->fill($form)->save();
 
-      return redirect('admin/profile/create');
+      return redirect('admin/profile');
     }
 
 
@@ -50,9 +52,30 @@ class ProfileController extends Controller
       unset($profile_form['_token']);
       $profile->fill($profile_form)->save();
 
-      return redirect('admin/profile/edit');
+      $prof_history = new Prof_history;
+      $prof_history->profile_id = $profile->id;
+      $prof_history->edited_at = Carbon::now();
+      $prof_history->save();
+
+      return redirect('admin/profile');
     }
 
+
+    public function index()
+    {
+      $users = Profile::all();
+
+      return view('admin.profile.index', ['users' => $users]);
+
+    }
+
+    public function delete(Request $request)
+    {
+      $profile = Profile::find($request->id);
+      $profile->delete();
+      return redirect('admin/profile');
+
+    }
 
 
 }
