@@ -46,7 +46,7 @@
               </div>
               <div class="image col-md-6 text-right mt-4">
                   @if ($post->image_path)
-                    <img src="{{ $post->image_path }}">
+                    <a href="{{ action('Admin\NewsController@index')}}"><img src="{{ $post->image_path }}"></a>
                   @endif
               </div>
             </div>
