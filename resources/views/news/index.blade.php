@@ -11,7 +11,7 @@
             <div class="caption mx-auto">
               <div class="image">
                 @if ($headline->image_path)
-                  <img src="{{ $headline->image_path }}">
+                  <a href="{{ action('Admin\NewsController@index') }}"><img src="{{ $headline->image_path }}"></a>
                 @endif
               </div>
               <div class="title p-2">
